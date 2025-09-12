@@ -1,0 +1,23 @@
+[general]
+import = [
+    "~/.config/alacritty/themes/themes/aura.toml"
+]
+
+[window]
+dimensions = { columns = 104, lines = 28 }
+opacity = 0.68
+decorations = "None"
+dynamic_padding = true
+#blur = true 
+startup_mode = "Maximized"
+
+[font]
+normal = { family = "JetBrainsMono Nerd Font" }
+size = 10
+
+[cursor]
+style = { blinking = "Always" }
+blink_interval = 350
+
+[env]
+term = "xterm-256color:RGB"
