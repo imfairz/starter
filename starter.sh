@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export $STARTER_DIR=$(pwd)
+export STARTER_DIR=$(pwd)
 
 chmod +x $STARTER_DIR/{starter,commit}.sh
 source $STARTER_DIR/starter.sh

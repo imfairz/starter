@@ -88,6 +88,7 @@ return {
     },
     {
         "saghen/blink.cmp",
+        build = "cargo build --release",
         version = "1.*",
         dependencies = {
             { "rafamadriz/friendly-snippets" },
@@ -130,5 +131,9 @@ return {
         dependencies = { "nvim-lua/plenary.nvim" },
         enabled = false,
     },
+    {
+        "windwp/nvim-ts-autotag",
+        opts = {}
+    }
 
 }

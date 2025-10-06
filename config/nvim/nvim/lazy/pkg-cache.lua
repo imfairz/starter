@@ -1,1 +1,0 @@
-return {pkgs={{name="plenary.nvim",spec={"nvim-lua/plenary.nvim",lazy=true,},file="community",dir="/home/fairuz/.local/share/nvim/lazy/plenary.nvim",source="lazy",},},version=12,}
