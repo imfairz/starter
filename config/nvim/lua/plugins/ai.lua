@@ -3,9 +3,9 @@ return {
         "supermaven-inc/supermaven-nvim",
         opts = {
             keymaps = {
-                accept_suggestion = "<Tab>",
+                accept_suggestion = "<C-a>",
                 clear_suggestion = "<C-esc>",
-                accept_word = "<C-Tab>",
+                accept_word = "<C-j>",
             },
             log_level = "info",
             disable_inline_completion = false,

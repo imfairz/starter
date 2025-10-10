@@ -134,6 +134,16 @@ return {
     {
         "windwp/nvim-ts-autotag",
         opts = {}
+    },
+    {
+        'akinsho/toggleterm.nvim',
+        version = "*",
+        opts = {
+            size = 60,
+            open_mapping = [[<C-\>]],
+            shade_terminals = true,
+            shading_factor = 2,
+            direction = 'vertical',
+        }
     }
-
 }

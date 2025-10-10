@@ -16,6 +16,12 @@ return {
     {
         "stevearc/conform.nvim",
         opts = {
+            formatters_by_ft = {
+                javascript = { "biome", "biome-organize-imports" },
+                javascriptreact = { "biome", "biome-organize-imports" },
+                typescript = { "biome", "biome-organize-imports" },
+                typescriptreact = { "biome", "biome-organize-imports" },
+            },
             notify_on_error = true,
             notify_no_formatters = true,
             default_format_opts = {
