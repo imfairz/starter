@@ -1,11 +1,9 @@
-To use this, follow these steps:
+Follow these steps:
 
-**1. Source the script:**
-```bash
-source starter.sh
+1. ```bash
+chmod +x starter.sh
 ```
 
-**2. Run the script directly:** it will copying the config files to their directories.
-```bash
+2. ```bash
 ./starter.sh
 ```
