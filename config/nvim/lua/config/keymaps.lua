@@ -48,3 +48,6 @@ vim.keymap.set({ "n" }, "<leader><C-f>", "<cmd>bd! grug-far<cr>", { desc = "Clos
 
 -- CodeCompanion
 vim.keymap.set({ "n" }, "<leader>cc", "<cmd>CodeCompanionAction<cr>", { desc = "Toggle CodeCompanion" })
+
+-- Terminal
+vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]], { noremap = true, silent = true })

@@ -139,11 +139,11 @@ return {
         'akinsho/toggleterm.nvim',
         version = "*",
         opts = {
-            size = 60,
-            open_mapping = [[<C-\>]],
+            size = 20,
+            open_mapping = [[<A-\>]],
             shade_terminals = true,
             shading_factor = 2,
-            direction = 'vertical',
+            direction = 'horizontal',
         }
     }
 }
