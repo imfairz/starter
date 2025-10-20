@@ -2,6 +2,9 @@
 -- vim.keymap.set('n', '<C-p>', telescope.find_files, { desc = 'Telescope find files' })
 -- vim.keymap.set('n', '<C><leader>', telescope.live_grep, { desc = 'Telescope live grep' })
 
+-- LazyGit
+vim.keymap.set({ "n" }, "<leader>G", "<cmd>LazyGit<cr>", { desc = "LazyGit" })
+
 vim.keymap.set({ "i", "x", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save File" })
 vim.keymap.set({ "n" }, "<C-a>", "ggVG", { desc = "Select All" })
 vim.keymap.set({ "n" }, "<leader>qq", "<cmd>wqa<cr>", { desc = "Close nvim" })

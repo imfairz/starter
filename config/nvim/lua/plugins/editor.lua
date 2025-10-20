@@ -145,5 +145,13 @@ return {
             shading_factor = 2,
             direction = 'horizontal',
         }
-    }
-}
+    },
+    {
+        'MeanderingProgrammer/render-markdown.nvim',
+        dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-mini/mini.nvim', 'nvim-mini/mini.icons', 'nvim-tree/nvim-web-devicons' },
+        ---@module 'render-markdown'
+        ---@type render.md.UserConfig
+        opts = {
+            completions = { lsp = { enabled = true } },
+        },
+    } }

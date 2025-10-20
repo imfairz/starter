@@ -18,6 +18,7 @@ return {
             "nvim-lua/plenary.nvim",
             "nvim-treesitter/nvim-treesitter",
         },
+        enabled = false,
         opts = {
             display = {
                 action_palette = {
