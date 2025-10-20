@@ -50,9 +50,5 @@ require("lazy").setup({
     spec = {
         { import = "plugins" },
     },
-    install = { colorscheme = { "kanagawa" } },
-    config = function()
-        vim.cmd([[colorscheme ayu-dark]])
-    end,
     -- checker = { enabled = true },
 })

@@ -44,6 +44,7 @@ vim.keymap.set({ "n" }, "<leader>7", "<cmd>BufferLineGoToBuffer 7<cr>", { desc =
 vim.keymap.set({ "n" }, "<leader>8", "<cmd>BufferLineGoToBuffer 8<cr>", { desc = "Go to buffer 8" })
 vim.keymap.set({ "n" }, "<leader>9", "<cmd>BufferLineGoToBuffer 9<cr>", { desc = "Go to buffer 9" })
 vim.keymap.set({ "n" }, "<leader>$", "<cmd>BufferLineGoToBuffer -1<cr>", { desc = "Go to last buffer" })
+vim.keymap.set({ "n" }, "<leader>X", "<cmd>BufferLineCloseOthers<cr>", { desc = "Close other buffers" })
 
 -- Grug-Far
 vim.keymap.set({ "n" }, "<leader>F", "<cmd>botright vertical GrugFar<cr>", { desc = "Toggle grug-far" })

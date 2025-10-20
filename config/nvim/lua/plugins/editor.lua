@@ -14,13 +14,13 @@ return {
                 sorter = "case_sensitive",
             },
             view = {
-                width = 30,
+                width = 40,
             },
             renderer = {
-                group_empty = true,
+                group_empty = false,
             },
-            filters = {
-                dotfiles = true,
+            git = {
+                ignore = false,
             },
         },
         -- enabled = false,
@@ -50,7 +50,7 @@ return {
         "nvim-lualine/lualine.nvim",
         opts = {
             options = {
-                theme = "ayu_dark",
+                theme = "material",
             },
         },
     },

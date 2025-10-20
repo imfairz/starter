@@ -8,7 +8,7 @@ dimensions = { columns = 104, lines = 28 }
 opacity = 0.80
 decorations = "None"
 dynamic_padding = true
-#blur = true 
+# blur = true 
 startup_mode = "Maximized"
 
 [font]
