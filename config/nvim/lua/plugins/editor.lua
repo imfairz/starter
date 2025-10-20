@@ -44,7 +44,11 @@ return {
     {
         "ibhagwan/fzf-lua",
         dependencies = { "nvim-tree/nvim-web-devicons" },
-        opts = {},
+        opts = {
+            files = {
+                no_ignore = true,
+            }
+        },
     },
     {
         "nvim-lualine/lualine.nvim",
