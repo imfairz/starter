@@ -5,7 +5,7 @@ return {
         lazy = false,
         build = ":TSUpdate",
         opts = {
-            ensure_installed = { "bash", "rust", "go", "lua", "vim", "javascript", "typescript", "tsx", "css", "html" },
+            ensure_installed = { "bash", "rust", "go", "lua", "vim", "javascript", "typescript", "tsx", "css", "html", "dockerfile", "markdown" },
             highlight = { enable = true },
             indent = { enable = true },
         },
