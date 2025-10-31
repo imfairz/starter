@@ -5,7 +5,7 @@ return {
         lazy = false,
         build = ":TSUpdate",
         opts = {
-            ensure_installed = { "bash", "rust", "go", "lua", "vim", "javascript", "typescript", "tsx", "css", "html", "dockerfile", "markdown" },
+            ensure_installed = { "bash", "rust", "go", "lua", "vim", "javascript", "typescript", "tsx", "css", "html", "dockerfile", "markdown", "xml", "astro" },
             highlight = { enable = true },
             indent = { enable = true },
         },
@@ -21,6 +21,7 @@ return {
                 javascriptreact = { "biome", "biome-organize-imports" },
                 typescript = { "biome", "biome-organize-imports" },
                 typescriptreact = { "biome", "biome-organize-imports" },
+                astro = { "prettier" },
             },
             notify_on_error = true,
             notify_no_formatters = true,

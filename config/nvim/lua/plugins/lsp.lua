@@ -29,6 +29,7 @@ return {
                         },
                     },
                 },
+                astro = {}
             },
         },
         config = function(_, opts)
@@ -46,7 +47,7 @@ return {
             "neovim/nvim-lspconfig",
         },
         opts = {
-            ensure_installed = { "lua_ls", "bashls", "html", "tailwindcss", "yamlls", "ts_ls", "rust_analyzer", "gopls", "biome", "dockerls", "docker_compose_language_service" },
+            ensure_installed = { "lua_ls", "bashls", "html", "tailwindcss", "yamlls", "ts_ls", "rust_analyzer", "gopls", "biome", "dockerls", "docker_compose_language_service", "lemminx", "astro" },
         }
     },
 }
