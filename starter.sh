@@ -11,6 +11,7 @@ git config --global user.name "Name"
 
 echo "==- Installing rustup.rs ==="
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+rustup toolchain install nightly
 
 echo "=== Installing bun.com ==="
 curl -fsSL https://bun.sh/install | bash
@@ -28,7 +29,7 @@ ln -sf $STARTER_DIR/config/.zshrc ~/
 
 echo "=== Installing aur packages ==="
 mkdir ~/applications
-git clone https://aur.archlinux.org/paru.git ~/applications
+git clone https://aur.archlinux.org/paru.git ~/applications/paru
 cd ~/applications/paru
 makepkg -si
 
@@ -36,7 +37,7 @@ paru -S zen-browser tableplus yaak realvnc-vnc-viewer
 curl -fsS https://dl.brave.com/install.sh | sh
 
 echo "=== Making docker containers ==="
-docker pull {mariadb,postgres} && docker run -d --name mariadb --restart unless-stopped -e MARIADB_ROOT_PASSWORD=12345678 -e MARIADB_USER=user -e MARIADB_PASSWORD=12345678 -e MARIADB_DATABASE=mysql -p 3306:3306 -v mariadb:/var/lib/mysql mariadb:latest && docker run -d --name psql --restart unless-stopped -e POSTGRES_PASSWORD=12345678 -e POSTGRES_USER=user -p 5432:5432 -v psql:/var/lib/postgresql/data postgres:latest
+docker pull mariadb postgres && docker run -d --name mariadb --restart unless-stopped -e MARIADB_ROOT_PASSWORD=12345678 -e MARIADB_USER=user -e MARIADB_PASSWORD=12345678 -e MARIADB_DATABASE=mysql -p 3306:3306 -v mariadb:/var/lib/mysql mariadb:latest && docker run -d --name psql --restart unless-stopped -e POSTGRES_PASSWORD=12345678 -e POSTGRES_USER=user -p 5432:5432 -v psql:/var/lib/postgresql/data postgres:latest
 
 chmod +x $STARTER_DIR/{starter,commit}.sh
 
@@ -56,4 +57,5 @@ ln -sf $STARTER_DIR/config/.alacritty.toml ~/
 echo "=== Copying tmux config ==="
 ln -sf $STARTER_DIR/config/.tmux.conf ~/
 
+. ~/.zshrc
 echo "[✓] Done."
