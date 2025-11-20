@@ -22,6 +22,7 @@ return {
                 typescript = { "biome", "biome-organize-imports" },
                 typescriptreact = { "biome", "biome-organize-imports" },
                 astro = { "prettier" },
+                yaml = { "prettier" },
             },
             notify_on_error = true,
             notify_no_formatters = true,

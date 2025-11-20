@@ -3,7 +3,8 @@
 export STARTER_DIR=$(pwd)
 
 echo "=== Installing apps through pacman ==="
-sudo pacman -S base-devel git curl bat vlc{,-plugins-all} tree tmux alacritty btop neovim fzf go lazygit zsh zed zoxide nvm pnpm php ttf-jetbrains-mono{,-nerd} docker docker-compose okular gwenview
+sudo pacman -S base-devel git curl unzip bat vlc{,-plugins-all} tree tmux alacritty btop neovim fzf go lazygit zsh zed zoxide nvm pnpm php ttf-jetbrains-mono{,-nerd} docker docker-compose okular gwenview
+sudo usermod -aG docker $USER
 
 git config --global user.email "you@example.com"
 git config --global user.name "Name"
@@ -11,7 +12,7 @@ git config --global user.name "Name"
 echo "==- Installing rustup.rs ==="
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
-echo "==- Installing brave.com ==="
+echo "=== Installing brave.com ==="
 curl -fsS https://dl.brave.com/install.sh | sh
 
 echo "=== Installing bun.com ==="
@@ -23,7 +24,17 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 echo "=== Installing ohmyzsh plugins ==="
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting && % git clone --depth 1 -- https://github.com/marlonrichert/zsh-autocomplete.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autocomplete
 
+echo "=== Copying zsh config ==="
+mv ~/.zshrc ~/.zshrc.bak
+ln -sf $STARTER_DIR/config/.zshrc ~/
+. ~/.zshrc
+
 echo "=== Installing aur packages ==="
+mkdir ~/applications
+git clone https://aur.archlinux.org/paru.git ~/applications
+cd ~/applications/paru
+makepkg -si
+
 paru -S zen-browser tableplus yaak realvnc-vnc-viewer
 
 echo "=== Making docker containers ==="
@@ -37,9 +48,6 @@ git clone https://github.com/alacritty/alacritty-theme ~/.config/alacritty/theme
 
 echo "=== Clone tpm ==="
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-
-echo "=== Copying zsh config ==="
-ln -sf $STARTER_DIR/config/.zshrc ~/
 
 echo "=== Copying nvim config ==="
 ln -sf $STARTER_DIR/config/nvim/ ~/.config/
