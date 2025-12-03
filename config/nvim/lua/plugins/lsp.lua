@@ -29,13 +29,10 @@ return {
                         },
                     },
                 },
-                astro = {},
             },
         },
         config = function(_, opts)
             for server, config in pairs(opts.servers) do
-                config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
-                -- require for lspconfig with neovim 0.11
                 vim.lsp.config(server, config)
             end
         end,
@@ -47,7 +44,7 @@ return {
             "neovim/nvim-lspconfig",
         },
         opts = {
-            ensure_installed = { "lua_ls", "bashls", "html", "tailwindcss", "yamlls", "ts_ls", "rust_analyzer", "gopls", "biome", "dockerls", "docker_compose_language_service", "lemminx", "astro", "svelte", "tsgo", "vacuum" },
+            ensure_installed = { "lua_ls", "bashls", "html", "tailwindcss", "yamlls", "rust_analyzer", "gopls", "biome", "dockerls", "docker_compose_language_service", "lemminx", "astro", "svelte", "tsgo", "vacuum" },
         }
     },
     {

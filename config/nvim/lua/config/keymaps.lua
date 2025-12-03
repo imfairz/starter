@@ -2,6 +2,8 @@
 -- vim.keymap.set('n', '<C-p>', telescope.find_files, { desc = 'Telescope find files' })
 -- vim.keymap.set('n', '<C><leader>', telescope.live_grep, { desc = 'Telescope live grep' })
 
+vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename symbol" })
+
 -- LazyGit
 vim.keymap.set({ "n" }, "<leader>G", "<cmd>LazyGit<cr>", { desc = "LazyGit" })
 

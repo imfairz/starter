@@ -7,7 +7,7 @@ if [[ "$SHELL" == *"zsh"* ]]; then
 fi
 
 echo "=== Installing apps through pacman ==="
-sudo pacman -S base-devel git curl unzip bat vlc{,-plugins-all} tree tmux alacritty btop neovim fzf go lazygit zsh zed zoxide nvm pnpm php inter-font ttf-jetbrains-mono{,-nerd} docker docker-compose okular gwenview
+sudo pacman -S base-devel git curl unzip bat vlc{,-plugins-all} tree tmux alacritty btop neovim fzf go lazygit zsh zed zoxide nvm pnpm php ttf-jetbrains-mono{,-nerd} docker docker-compose docker-buildx okular gwenview
 sudo usermod -aG docker $USER
 
 git config --global user.email "you@example.com"
@@ -43,6 +43,10 @@ if ! command -v bun &>/dev/null; then
     curl -fsSL https://bun.sh/install | bash &>/dev/null
 fi
 
+paru -S zen-browser-bin tableplus yaak realvnc-vnc-viewer
+curl -fsS https://dl.brave.com/install.sh | sh
+mkdir -p ~/.config/BraveSoftware/Brave-Browser/Default && cp ./config/brave-preferences ~/.config/BraveSoftware/Brave-Browser/Default/Preferences
+
 if ! command -v paru &>/dev/null; then
     echo "=== Installing aur packages ==="
     mkdir -p ~/applications/aur-ish
@@ -58,7 +62,9 @@ fi
 
 if docker ps --format '{{.Names}}' | grep -q "mariadb" || docker ps --format '{{.Names}}' | grep -q "psql"; then
     echo "=== Setup docker containers ==="
-    docker run -d --name mariadb --restart unless-stopped -e MARIADB_ROOT_PASSWORD=12345678 -e MARIADB_USER=user -e MARIADB_PASSWORD=12345678 -e MARIADB_DATABASE=mysql -p 3306:3306 -v mariadb:/var/lib/mysql mariadb:latest && docker run -d --name psql --restart unless-stopped -e POSTGRES_PASSWORD=12345678 -p 5432:5432 -v psql:/var/lib/postgresql/data postgres:latest
+    RANDOM_POSTGRES_PASSWORD=$(< /dev/urandom tr -dc 'A-Za-z0-9!@#$%^&*()_+' | head -c 32)
+    echo "Postgres random password: $RANDOM_POSTGRES_PASSWORD"
+    docker run -d --name mariadb --restart unless-stopped -e MARIADB_RANDOM_ROOT_PASSWORD=true MARIADB_DATABASE=mysql -p 3306:3306 -v mariadb:/var/lib/mysql mariadb:latest && docker run -d --name psql --restart unless-stopped -e POSTGRES_PASSWORD=$RANDOM_POSTGRES_PASSWORD -p 5432:5432 -v psql:/var/lib/postgresql/data postgres:latest
 fi
 
 chmod +x $STARTER_DIR/{starter,commit}.sh

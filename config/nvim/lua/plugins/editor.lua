@@ -106,8 +106,11 @@ return {
                 documentation = { auto_show = true, auto_show_delay_ms = 500 },
                 keyword = { range = "full" },
                 accept = { auto_brackets = { enabled = true } },
-                list = { selection = { preselect = true, auto_insert = true } },
+                list = { selection = { preselect = true, auto_insert = false } },
                 trigger = { show_on_keyword = true },
+            },
+            signature = {
+                enabled = true,
             },
             sources = {
                 default = { 'lsp', 'path', 'snippets', 'buffer' },
@@ -154,4 +157,5 @@ return {
         opts = {
             completions = { lsp = { enabled = true } },
         },
-    } }
+    }
+}
