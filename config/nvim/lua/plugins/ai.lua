@@ -15,7 +15,7 @@ return {
         "olimorris/codecompanion.nvim",
         dependencies = {
             -- I HATE COPILOT
-            -- "github/copilot.vim",
+            "github/copilot.vim",
             "nvim-lua/plenary.nvim",
             "nvim-treesitter/nvim-treesitter",
         },
