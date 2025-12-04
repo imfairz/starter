@@ -18,7 +18,9 @@ vim.keymap.set({ "n" }, "<C-j>", "<C-w>j", { desc = "Go to Down Window", remap =
 vim.keymap.set({ "n" }, "<C-k>", "<C-w>k", { desc = "Go to Top Window", remap = true })
 
 -- Snacks
-vim.keymap.set({ "n" }, "<leader>bd", function() Snacks.bufdelete() end, { desc = "Delete Buffer" })
+vim.keymap.set({ "n" }, "<leader>bd", function()
+	Snacks.bufdelete()
+end, { desc = "Delete Buffer" })
 
 -- Nvim Tree
 vim.keymap.set({ "n" }, "<C-b>", "<cmd>NvimTreeToggle<cr>", { desc = "Toggle file tree" })
@@ -56,4 +58,4 @@ vim.keymap.set({ "n" }, "<leader><C-f>", "<cmd>bd! grug-far<cr>", { desc = "Clos
 vim.keymap.set({ "n" }, "<leader>cc", "<cmd>CodeCompanionAction<cr>", { desc = "Toggle CodeCompanion" })
 
 -- ToggleTerm
-vim.keymap.set('t', '<C-x>', [[<C-\><C-n>]], { noremap = true, silent = true })
+vim.keymap.set("t", "<C-x>", [[<C-\><C-n>]], { noremap = true, silent = true })
