@@ -45,7 +45,7 @@ return {
 		},
 		opts = {
 			ensure_installed = {
-				"lua_ls",
+				-- "lua_ls",
 				"bashls",
 				"html",
 				"tailwindcss",

@@ -1,7 +1,9 @@
 return {
 	{
 		"lewis6991/gitsigns.nvim",
-		opts = {},
+		opts = {
+			word_diff = true,
+		},
 	},
 	{
 		"kdheepak/lazygit.nvim",
