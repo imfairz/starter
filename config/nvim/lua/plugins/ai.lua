@@ -21,6 +21,7 @@ return {
 		},
 		-- enabled = false,
 		opts = {
+			ignore_warnings = true,
 			-- strategies = {
 			--     chat = {
 			--         adapter = "ollama",
