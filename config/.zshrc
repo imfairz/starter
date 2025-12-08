@@ -106,6 +106,9 @@ source $ZSH/oh-my-zsh.sh
 export EDITOR="vim"
 export VISUAL="vim"
 
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
+export SSH_ASKPASS="/usr/bin/ksshaskpass"
+
 alias ltr="tree -a -s -t -h -C -I .git --gitignore"
 alias bcn="bat --paging=never"
 alias v="nvim"

@@ -39,7 +39,7 @@ return {
 				typescriptreact = { "biome", "biome-organize-imports" },
 				astro = { "prettier" },
 				yaml = { "prettier" },
-				go = { "goimports", "golines" },
+				go = { "goimports" },
 			},
 			notify_on_error = true,
 			notify_no_formatters = true,

@@ -1,17 +1,5 @@
 return {
 	{
-		"mason-org/mason.nvim",
-		opts = {
-			ui = {
-				icons = {
-					package_installed = "✓",
-					package_pending = "➜",
-					package_uninstalled = "✗",
-				},
-			},
-		},
-	},
-	{
 		"neovim/nvim-lspconfig",
 		dependencies = {
 			{ "williamboman/mason.nvim", cmd = "Mason", build = ":MasonUpdate" },
@@ -34,8 +22,21 @@ return {
 		config = function(_, opts)
 			for server, config in pairs(opts.servers) do
 				vim.lsp.config(server, config)
+				vim.lsp.enable(server)
 			end
 		end,
+	},
+	{
+		"mason-org/mason.nvim",
+		opts = {
+			ui = {
+				icons = {
+					package_installed = "✓",
+					package_pending = "➜",
+					package_uninstalled = "✗",
+				},
+			},
+		},
 	},
 	{
 		"mason-org/mason-lspconfig.nvim",
