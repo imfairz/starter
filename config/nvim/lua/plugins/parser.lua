@@ -21,6 +21,7 @@ return {
 				"xml",
 				"astro",
 				"svelte",
+				"vue",
 			},
 			highlight = { enable = true },
 			indent = { enable = true },
@@ -39,7 +40,13 @@ return {
 				typescriptreact = { "biome", "biome-organize-imports" },
 				astro = { "prettier" },
 				yaml = { "prettier" },
+				vue = { "prettier" },
 				go = { "goimports" },
+			},
+			formatters = {
+				prettier = {
+					append_args = { "--tab-width", "4" },
+				},
 			},
 			notify_on_error = true,
 			notify_no_formatters = true,
@@ -48,6 +55,7 @@ return {
 			},
 			format_on_save = {
 				timeout_ms = 500,
+				"",
 			},
 		},
 	},
@@ -57,7 +65,6 @@ return {
 			ensure_installed = {
 				"stylua",
 				"prettier",
-				"prettierd",
 				"yamlfix",
 				"vacuum",
 				"biome",
@@ -66,11 +73,26 @@ return {
 				"goimports",
 				"golines",
 				"gotests",
+				"vtsls",
 			},
 		},
 	},
 	{
 		"m4xshen/autoclose.nvim",
 		opts = {},
+	},
+	{
+		"JoosepAlviste/nvim-ts-context-commentstring",
+		opts = {
+			enable_autocmd = false,
+		},
+	},
+	{
+		"numToStr/Comment.nvim",
+		opts = {
+			pre_hook = function(ctx)
+				require("ts_context_commentstring.internal").update_commentstring(ctx)
+			end,
+		},
 	},
 }

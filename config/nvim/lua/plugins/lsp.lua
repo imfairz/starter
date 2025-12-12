@@ -17,12 +17,30 @@ return {
 						},
 					},
 				},
+				vtsls = {
+					settings = {
+						vtsls = {
+							tsserver = {
+								globalPlugins = {
+									{
+										name = "@vue/typescript-plugin",
+										location = vim.fn.stdpath("data")
+											.. "/mason/packages/vue-language-server/node_modules/@vue/language-server",
+										languages = { "vue" },
+										configNamespace = "typescript",
+									},
+								},
+							},
+						},
+					},
+					filetypes = { "vue" },
+				},
 			},
 		},
 		config = function(_, opts)
 			for server, config in pairs(opts.servers) do
-				vim.lsp.config(server, config)
 				vim.lsp.enable(server)
+				vim.lsp.config(server, config)
 			end
 		end,
 	},
@@ -61,6 +79,8 @@ return {
 				"svelte",
 				"tsgo",
 				"vacuum",
+				"vue_ls",
+				-- "ts_ls",
 			},
 		},
 	},

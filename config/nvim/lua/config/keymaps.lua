@@ -3,6 +3,7 @@
 -- vim.keymap.set('n', '<C><leader>', telescope.live_grep, { desc = 'Telescope live grep' })
 
 vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename symbol" })
+vim.keymap.set("n", "<leader>D", vim.diagnostic.open_float, { desc = "Show line diagnostics" })
 
 -- LazyGit
 vim.keymap.set({ "n" }, "<leader>G", "<cmd>LazyGit<cr>", { desc = "LazyGit" })
