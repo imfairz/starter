@@ -80,7 +80,7 @@ return {
 				"tsgo",
 				"vacuum",
 				"vue_ls",
-				-- "ts_ls",
+				"vtsls",
 			},
 		},
 	},

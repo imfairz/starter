@@ -22,6 +22,7 @@ return {
 				"astro",
 				"svelte",
 				"vue",
+				"arduino",
 			},
 			highlight = { enable = true },
 			indent = { enable = true },
@@ -41,7 +42,8 @@ return {
 				astro = { "prettier" },
 				yaml = { "prettier" },
 				vue = { "prettier" },
-				go = { "goimports" },
+				go = { "gopls", "goimports" },
+				arduino = { "clang-format" },
 			},
 			formatters = {
 				prettier = {
@@ -73,7 +75,8 @@ return {
 				"goimports",
 				"golines",
 				"gotests",
-				"vtsls",
+				"arduino-language-server",
+				"clang-format",
 			},
 		},
 	},
