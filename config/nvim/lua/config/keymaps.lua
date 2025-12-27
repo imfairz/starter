@@ -87,3 +87,8 @@ vim.keymap.set({ "n" }, "<leader>cc", "<cmd>CodeCompanionAction<cr>", { desc = "
 
 -- ToggleTerm
 vim.keymap.set("t", "<C-x>", [[<C-\><C-n>]], { noremap = true, silent = true })
+
+-- Lint
+vim.keymap.set("n", "<leader>ll", function()
+	require("lint").try_lint()
+end, { desc = "Trigger linting for current file" })

@@ -81,6 +81,7 @@ return {
 				"vacuum",
 				"vue_ls",
 				"vtsls",
+				"eslint",
 			},
 		},
 	},
