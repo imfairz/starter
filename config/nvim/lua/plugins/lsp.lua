@@ -82,6 +82,7 @@ return {
 				"vue_ls",
 				"vtsls",
 				"eslint",
+				"angularls",
 			},
 		},
 	},

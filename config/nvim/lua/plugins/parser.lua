@@ -39,15 +39,21 @@ return {
 				javascriptreact = { "biome", "biome-organize-imports" },
 				typescript = { "biome", "biome-organize-imports" },
 				typescriptreact = { "biome", "biome-organize-imports" },
+				html = { "prettier" },
 				astro = { "prettier" },
 				yaml = { "prettier" },
 				vue = { "prettier" },
+				json = { "prettier" },
 				go = { "gopls", "goimports" },
 				arduino = { "clang-format" },
 			},
 			formatters = {
 				prettier = {
 					append_args = { "--tab-width", "4" },
+				},
+				biome = {
+					indent_style = "tab",
+					indent_width = 4,
 				},
 			},
 			notify_on_error = true,
