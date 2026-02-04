@@ -3,7 +3,7 @@
 STARTER_DIR="$(pwd)"
 
 echo "=== Installing apps through pacman ==="
-sudo pacman -S --needed --noconfirm base-devel git curl unzip bat vlc{,-plugins-all} tree tmux alacritty btop neovim tree-sitter lua-rocks fzf zig go lazygit zsh zsh-completions zed zoxide nvm pnpm php inter-font ttf-jetbrains-mono{,-nerd} lua-language-server docker docker-compose docker-buildx okular gwenview ast-grep
+sudo pacman -S --needed --noconfirm base-devel git curl unzip bat vlc{,-plugins-all} tree tmux alacritty btop neovim tree-sitter lua-rocks fzf zig go lazygit zsh zsh-completions zoxide nvm pnpm php inter-font ttf-jetbrains-mono{,-nerd} lua-language-server docker docker-compose docker-buildx okular gwenview ast-grep
 sudo usermod -aG docker $USER || true
 
 git config --global user.email "me@example.com"

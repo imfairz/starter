@@ -44,7 +44,7 @@ return {
 				yaml = { "prettier" },
 				vue = { "prettier" },
 				json = { "prettier" },
-				go = { "gopls", "goimports" },
+				go = { "gopls", "goimports", "golines" },
 				arduino = { "clang-format" },
 			},
 			formatters = {
