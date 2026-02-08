@@ -83,6 +83,7 @@ return {
 				"vtsls",
 				"eslint",
 				"angularls",
+				"prismals",
 			},
 		},
 	},
