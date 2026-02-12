@@ -22,31 +22,6 @@ return {
 		-- enabled = false,
 		opts = {
 			ignore_warnings = true,
-			-- strategies = {
-			--     chat = {
-			--         adapter = "ollama",
-			--     },
-			-- },
-			-- adapters = {
-			--     http = {
-			--         ollama = function()
-			--             return require("codecompanion.adapters").extend("ollama", {
-			--                 name = "ollama",
-			--                 schema = {
-			--                     model = {
-			--                         default = "codellama:latest",
-			--                     },
-			--                     num_ctx = {
-			--                         default = 16384,
-			--                     },
-			--                     num_predict = {
-			--                         default = -1,
-			--                     },
-			--                 },
-			--             })
-			--         end,
-			--     }
-			-- },
 			display = {
 				action_palette = {
 					width = 95,
@@ -59,6 +34,30 @@ return {
 						title = "CodeCompanion actions",
 					},
 				},
+			},
+		},
+	},
+	{
+		"nickjvandyke/opencode.nvim",
+		dependencies = {
+			---@module 'snacks'
+			{ "folke/snacks.nvim", opts = { input = {}, picker = {}, terminal = {} } },
+		},
+		config = function()
+			---@type opencode.Opts
+			vim.g.opencode_opts = {}
+
+			vim.o.autoread = true
+		end,
+	},
+	{
+		"carlos-algms/agentic.nvim",
+		opts = {
+			provider = "opencode-acp",
+			diff_preview = {
+				enabled = true,
+				layout = "inline", -- "split" or "inline"
+				center_on_navigate_hunks = true,
 			},
 		},
 	},
