@@ -84,6 +84,7 @@ return {
 				"eslint",
 				"angularls",
 				"prismals",
+				"gh_actions_ls",
 			},
 		},
 	},
