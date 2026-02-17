@@ -1,0 +1,26 @@
+services:
+    psql:
+        image: postgres:latest
+        container_name: psql
+        restart: unless-stopped
+        environment:
+            POSTGRES_PASSWORD: postgres
+        ports:
+            - 5432:5432
+        volumes:
+            - psql:/var/lib/postgresql/data
+    mariadb:
+        image: mariadb:latest
+        container_name: mariadb
+        restart: unless-stopped
+        environment:
+            MARIADB_RANDOM_ROOT_PASSWORD: true
+            MARIADB_DATABASE: mysql
+        ports:
+            - 3306:3306
+        volumes:
+            - mariadb:/var/lib/mysql
+
+volumes:
+    psql:
+    mariadb:

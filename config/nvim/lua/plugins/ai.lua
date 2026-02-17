@@ -19,7 +19,6 @@ return {
 			"nvim-lua/plenary.nvim",
 			"nvim-treesitter/nvim-treesitter",
 		},
-		-- enabled = false,
 		opts = {
 			ignore_warnings = true,
 			display = {
@@ -36,6 +35,7 @@ return {
 				},
 			},
 		},
+		enabled = false,
 	},
 	{
 		"nickjvandyke/opencode.nvim",
@@ -46,14 +46,13 @@ return {
 		config = function()
 			---@type opencode.Opts
 			vim.g.opencode_opts = {}
-
 			vim.o.autoread = true
 		end,
 	},
 	{
 		"carlos-algms/agentic.nvim",
 		opts = {
-			provider = "opencode-acp",
+			provider = "opencode-acp", -- "claude-acp" | "gemini-acp" | "codex-acp" | "opencode-acp" | "cursor-acp"
 			diff_preview = {
 				enabled = true,
 				layout = "inline", -- "split" or "inline"
