@@ -83,7 +83,7 @@ vim.keymap.set({ "n" }, "<leader>F", "<cmd>botright vertical GrugFar<cr>", { des
 vim.keymap.set({ "n" }, "<leader><C-f>", "<cmd>bd! grug-far<cr>", { desc = "Close grug-far" })
 
 -- CodeCompanion
-vim.keymap.set({ "n" }, "<leader>cc", "<cmd>CodeCompanionAction<cr>", { desc = "Toggle CodeCompanion" })
+-- vim.keymap.set({ "n" }, "<leader>cc", "<cmd>CodeCompanionAction<cr>", { desc = "Toggle CodeCompanion" })
 
 -- ToggleTerm
 vim.keymap.set("t", "<C-x>", [[<C-\><C-n>]], { noremap = true, silent = true })
@@ -104,38 +104,35 @@ end, { desc = "Execute opencode action…" })
 vim.keymap.set({ "n", "t" }, "<leader>oct", function()
 	opencode.toggle()
 end, { desc = "Toggle opencode" })
-
 vim.keymap.set({ "n", "x" }, "go", function()
 	return opencode.operator("@this ")
 end, { desc = "Add range to opencode", expr = true })
 vim.keymap.set("n", "goo", function()
 	return opencode.operator("@this ") .. "_"
 end, { desc = "Add line to opencode", expr = true })
-
 vim.keymap.set("n", "<S-C-u>", function()
 	opencode.command("session.half.page.up")
 end, { desc = "Scroll opencode up" })
 vim.keymap.set("n", "<S-C-d>", function()
 	opencode.command("session.half.page.down")
 end, { desc = "Scroll opencode down" })
--- vim.keymap.set("n", "+", "<C-a>", { desc = "Increment under cursor", noremap = true })
--- vim.keymap.set("n", "-", "<C-x>", { desc = "Decrement under cursor", noremap = true })
+vim.keymap.set("n", "+", "<C-a>", { desc = "Increment under cursor", noremap = true })
+vim.keymap.set("n", "-", "<C-x>", { desc = "Decrement under cursor", noremap = true })
 
 -- Agentic
 local agentic = require("agentic")
-vim.keymap.set({ "n", "v", "i" }, "<leader>agt", function()
+vim.keymap.set({ "n", "v" }, "<leader>agt", function()
 	agentic.toggle()
 end, { desc = "Toggle Agentic Chat" })
 vim.keymap.set({ "n", "v" }, "<leader>aga", function()
 	agentic.add_selection_or_file_to_context()
 end, { desc = "Add file or selection to Agentic to Context" })
-vim.keymap.set({ "n", "v", "i" }, "<leader>agn", function()
+vim.keymap.set({ "n", "v" }, "<leader>agn", function()
 	agentic.new_session()
 end, { desc = "New Agentic Session" })
-
-vim.keymap.set({ "n", "v", "i" }, "<leader>ag0", function()
+vim.keymap.set({ "n", "v" }, "<leader>ag0", function()
 	agentic.stop_generation()
 end, { desc = "Stop Agentic Generation" })
-vim.keymap.set({ "n", "v", "i" }, "<leader>agr", function()
+vim.keymap.set({ "n", "v" }, "<leader>agr", function()
 	agentic.restore_session()
 end, { desc = "Restore Agentic Session" })
