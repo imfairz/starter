@@ -119,6 +119,8 @@ alias ss="sudo systemctl status"
 alias se="sudo systemctl enable"
 alias s0="sudo systemctl stop"
 
+alias cg="cargo"
+
 #asdf
 export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 fpath+=${ASDF_DATA_DIR:-$HOME/.asdf}/completions
