@@ -46,6 +46,11 @@ if ! command -v bun &>/dev/null; then
     curl -fsSL https://bun.sh/install | bash &>/dev/null
 fi
 
+if ! command -v node &>/dev/null; then
+    echo "=== Installing nodejs ==="
+    nvm install --lts | bash &>/dev/null
+fi
+
 # aur-ish
 echo "=== Installing aur packages ==="
 
@@ -83,14 +88,14 @@ if ! command -v brave &>/dev/null; then
     cp $STARTER_DIR/config/brave-preferences ~/.config/BraveSoftware/Brave-Browser/Default/Preferences
 fi
 
-if ! command -v dbpro &>/dev/null; then
-    echo "=== Installing DBPro ==="
-    git clone https://github.com/imfairz/dbpro $AUR_DIR/dbpro
-    cd $AUR_DIR/dbpro
-    chmod +x install.sh
-    ./install.sh
-    cd $STARTER_DIR
-fi
+# if ! command -v dbpro &>/dev/null; then
+#     echo "=== Installing DBPro ==="
+#     git clone https://github.com/imfairz/dbpro $AUR_DIR/dbpro
+#     cd $AUR_DIR/dbpro
+#     chmod +x install.sh
+#     ./install.sh
+#     cd $STARTER_DIR
+# fi
 
 echo "=== Done with aurs. ==="
 # end aur-ish
