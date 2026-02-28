@@ -8,8 +8,11 @@ GIT_NAME="$2"
 mkdir -p $AUR_DIR
 
 echo "=== Installing apps through pacman ==="
-sudo pacman -S --needed --noconfirm pacman-contrib base-devel git curl unzip bat vlc{,-plugins-all} tree tmux alacritty btop rsync neovim tree-sitter lua-rocks fzf zig go lazygit zsh zsh-completions zoxide nvm pnpm php inter-font ttf-jetbrains-mono{,-nerd} lua-language-server docker docker-compose docker-buildx okular gwenview ast-grep
+sudo pacman -S --needed --noconfirm pacman-contrib base-devel git curl unzip bat vlc{,-plugins-all} tree tmux alacritty btop rsync neovim tree-sitter lua-rocks fzf zig go lazygit zsh zsh-completions zoxide nvm pnpm php inter-font ttf-jetbrains-mono{,-nerd} lua-language-server docker{,-compose,-buildx} podman{,-compose} okular gwenview ast-grep
+
 sudo usermod -aG docker $USER || true
+usermod --add-subuids 100000-165535 --add-subgids 100000-165535 $USER
+systemctl --user enable --now podman{.soket,-restart}
 
 git config --global user.email "$GIT_EMAIL"
 git config --global user.name "$GIT_NAME"
@@ -76,10 +79,10 @@ if ! command -v yaak-app &>/dev/null; then
     paru -S --noconfirm yaak-bin
 fi
 
-if ! command -v vncviewer &>/dev/null; then
-    echo "=== Installing VNCviewer ==="
-    paru -S --noconfirm realvnc-vnc-viewer
-fi
+# if ! command -v vncviewer &>/dev/null; then
+#     echo "=== Installing VNCviewer ==="
+#     paru -S --noconfirm realvnc-vnc-viewer
+# fi
 
 if ! command -v brave &>/dev/null; then
     echo "=== Installing Brave ==="
@@ -100,9 +103,10 @@ fi
 echo "=== Done with aurs. ==="
 # end aur-ish
 
-if ! docker ps --format '{{.Names}}' | grep -q "mariadb" && ! docker ps --format '{{.Names}}' | grep -q "psql"; then
-    echo "=== Setup docker containers ==="
-    docker compose -f $STARTER_DIR/config/compose.yaml up -d
+if ! podman ps --format '{{.Names}}' | grep -q "mariadb" && ! podman ps --format '{{.Names}}' | grep -q "postgres"; then
+    echo "=== Setup podman containers ==="
+    cd $STARTER_DIR/config
+    podman-compose up -d
 fi
 
 chmod +x $STARTER_DIR/{starter,commit}.sh

@@ -1,28 +1,42 @@
 services:
     psql:
-        image: postgres:latest
-        container_name: psql
-        restart: unless-stopped
+        image: docker.io/library/postgres:18
+        container_name: postgres
+        restart: always
         environment:
             POSTGRES_PASSWORD: postgres
         ports:
             - 5432:5432
         volumes:
-            - psql:/var/lib/postgresql/data
+            - postgres:/var/lib/postgresql
             - /etc/localtime:/etc/localtime:ro
+        healthcheck:
+            test: ["CMD-SHELL", "pg_isready -U postgres -d postgres"]
+            interval: 10s
+            timeout: 5s
+            retries: 5
+            start_period: 10s
+
     mariadb:
-        image: mariadb:latest
+        image: docker.io/library/mariadb:lts
         container_name: mariadb
-        restart: unless-stopped
+        restart: always
         environment:
-            MARIADB_RANDOM_ROOT_PASSWORD: true
-            MARIADB_DATABASE: mysql
+            MARIADB_ROOT_PASSWORD: root
+            MARIADB_USER: mariadb
+            MARIADB_PASSWORD: mariadb
         ports:
             - 3306:3306
         volumes:
             - mariadb:/var/lib/mysql
             - /etc/localtime:/etc/localtime:ro
+        healthcheck:
+            test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+            start_period: 10s
+            interval: 20s
+            timeout: 10s
+            retries: 3
 
 volumes:
-    psql:
+    postgres:
     mariadb:
