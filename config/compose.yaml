@@ -10,6 +10,8 @@ services:
         volumes:
             - postgres:/var/lib/postgresql
             - /etc/localtime:/etc/localtime:ro
+        networks:
+            - default
         healthcheck:
             test: ["CMD-SHELL", "pg_isready -U postgres -d postgres"]
             interval: 10s
@@ -17,26 +19,41 @@ services:
             retries: 5
             start_period: 10s
 
-    mariadb:
-        image: docker.io/library/mariadb:lts
-        container_name: mariadb
+    mysql:
+        image: docker.io/library/mysql:lts
+        container_name: mysql
         restart: always
         environment:
-            MARIADB_ROOT_PASSWORD: root
-            MARIADB_USER: mariadb
-            MARIADB_PASSWORD: mariadb
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_USER: mysql
+            MYSQL_PASSWORD: mysql
         ports:
             - 3306:3306
         volumes:
-            - mariadb:/var/lib/mysql
+            - mysql:/var/lib/mysql
             - /etc/localtime:/etc/localtime:ro
+        networks:
+            - default
         healthcheck:
-            test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
-            start_period: 10s
+            test:
+                [
+                    "CMD",
+                    "mysqladmin",
+                    "ping",
+                    "-h",
+                    "localhost",
+                    "-uroot",
+                    "-p$MYSQL_ROOT_PASSWORD",
+                ]
             interval: 20s
-            timeout: 10s
+            timeout: 5s
             retries: 3
+            start_period: 30s
 
 volumes:
     postgres:
-    mariadb:
+    mysql:
+
+networks:
+    default:
+        name: databases
