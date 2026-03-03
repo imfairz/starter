@@ -8,12 +8,12 @@ GIT_NAME="$2"
 mkdir -p $AUR_DIR
 
 echo "=== Installing apps through pacman ==="
-sudo pacman -S --needed --noconfirm pacman-contrib base-devel git curl unzip bat vlc{,-plugins-all} tree tmux alacritty btop rsync neovim tree-sitter lua-rocks fzf go lazygit zsh zsh-completions zoxide nvm pnpm php inter-font ttf-jetbrains-mono{,-nerd} lua-language-server docker{,-compose,-buildx} podman{,-compose} okular gwenview ast-grep
+sudo pacman -S --needed --noconfirm pacman-contrib base-devel git curl unzip bat vlc{,-plugins-all} tree tmux alacritty btop rsync neovim tree-sitter luarocks fzf go lazygit zsh zsh-completions zoxide nvm pnpm php inter-font ttf-jetbrains-mono{,-nerd} lua-language-server docker{,-compose,-buildx} podman{,-compose} okular gwenview ast-grep
 
 sudo usermod -aG docker $USER || true
-usermod --add-subuids 100000-165535 --add-subgids 100000-165535 $USER
+sudo usermod --add-subuids 100000-165535 --add-subgids 100000-165535 $USER
 systemctl --user enable --now podman{.socket,-restart}
-ln -s $STARTER_DIR/config/containers ~/.config/
+ln -sf $STARTER_DIR/config/containers ~/.config/
 
 git config --global user.email "$GIT_EMAIL"
 git config --global user.name "$GIT_NAME"
