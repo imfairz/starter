@@ -85,6 +85,7 @@ return {
 				"angularls",
 				"prismals",
 				"gh_actions_ls",
+				"fish_lsp",
 			},
 		},
 	},

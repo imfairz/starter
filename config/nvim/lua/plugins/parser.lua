@@ -24,6 +24,7 @@ return {
 				"vue",
 				"arduino",
 				"prisma",
+				"fish",
 			},
 			highlight = { enable = true },
 			indent = { enable = true },
