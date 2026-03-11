@@ -18,7 +18,6 @@ ln -sf $STARTER_DIR/config/containers ~/.config/
 git config --global user.email "$GIT_EMAIL"
 git config --global user.name "$GIT_NAME"
 
-zoxide init fish | source
 command -v fish | sudo tee -a /etc/shells
 chsh -s "$(command -v fish)"
 if [ ! -d ~/.local/share/omf ]; then

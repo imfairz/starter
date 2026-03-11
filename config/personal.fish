@@ -10,3 +10,5 @@ alias sr="sudo systemctl restart"
 alias ss="sudo systemctl status"
 alias se="sudo systemctl enable"
 alias s0="sudo systemctl stop"
+
+zoxide init fish | source
