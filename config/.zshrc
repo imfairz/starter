@@ -127,7 +127,7 @@ fpath+=${ASDF_DATA_DIR:-$HOME/.asdf}/completions
 #. /opt/asdf-vm/asdf.sh
 
 #flutter
-export ANDROID_SDK_ROOT="/home/fairuz/Android/Sdk"
+export ANDROID_SDK_ROOT="$HOME/Android/Sdk"
 export PATH="$PATH:$HOME/fvm/default/bin"
 export PATH="$PATH:$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$ANDROID_SDK_ROOT/platform-tools:$ANDROID_SDK_ROOT/emulator" 
 export CHROME_EXECUTABLE="/opt/brave-bin/brave"
@@ -138,7 +138,7 @@ export PATH="$PATH:$HOME/.config/composer/vendor/bin"
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
-[ -s "/home/aino/.bun/_bun" ] && source "/home/aino/.bun/_bun" # completions
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun" # completions
 
 # nvm
 export NVM_DIR="$HOME/.nvm"
@@ -147,7 +147,7 @@ export NVM_DIR="$HOME/.nvm"
 # nvm end
 
 # pnpm
-export PNPM_HOME="/home/aino/.local/share/pnpm"
+export PNPM_HOME="$HOME/.local/share/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
@@ -172,7 +172,7 @@ source /usr/share/nvm/init-nvm.sh
 
 ## [Completion]
 ## Completion scripts setup. Remove the following line to uninstall
-[[ -f /home/fairuz/.dart-cli-completion/zsh-config.zsh ]] && . /home/fairuz/.dart-cli-completion/zsh-config.zsh || true
+[[ -f $HOME/.dart-cli-completion/zsh-config.zsh ]] && . /home/fairuz/.dart-cli-completion/zsh-config.zsh || true
 ## [/Completion]
 
 # fzf

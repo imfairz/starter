@@ -8,7 +8,7 @@ GIT_NAME="$2"
 mkdir -p $AUR_DIR
 
 echo "=== Installing apps through pacman ==="
-sudo pacman -S --needed --noconfirm pacman-contrib base-devel git curl unzip bat vlc{,-plugins-all} tree tmux alacritty btop rsync neovim tree-sitter luarocks fzf go lazygit zsh zsh-completions zoxide nvm pnpm php inter-font ttf-jetbrains-mono{,-nerd} lua-language-server docker{,-compose,-buildx} podman{,-compose} okular gwenview ast-grep
+sudo pacman -S --needed --noconfirm pacman-contrib base-devel git curl unzip bat vlc{,-plugins-all} tree tmux alacritty btop rsync neovim tree-sitter lua-rocks fzf go lazygit fish zoxide pnpm php inter-font ttf-jetbrains-mono{,-nerd} lua-language-server docker{,-compose,-buildx} podman{,-compose} okular gwenview ast-grep
 
 sudo usermod -aG docker $USER || true
 sudo usermod --add-subuids 100000-165535 --add-subgids 100000-165535 $USER
@@ -18,26 +18,34 @@ ln -sf $STARTER_DIR/config/containers ~/.config/
 git config --global user.email "$GIT_EMAIL"
 git config --global user.name "$GIT_NAME"
 
-if [[ ! -d "${ZSH:-$HOME/.oh-my-zsh}" ]]; then
-    echo "=== Installing oh-my-zsh ==="
-    RUNZSH=no CHSH=no KEEP_ZSHRC=yes sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+zoxide init fish | source
+command -v fish | sudo tee -a /etc/shells
+chsh -s "$(command -v fish)"
+if [ ! -d ~/.local/share/omf ]; then
+    curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
 fi
+fish -c "omf update && omf install {sushi,nvm}"
 
-echo "=== Installing ohmyzsh plugins ==="
-ZSH_CUSTOM_PLUGINS_DIR="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins"
-mkdir -p $ZSH_CUSTOM_PLUGINS_DIR 2>/dev/null
-if [[ ! -d $ZSH_CUSTOM_PLUGINS_DIR/zsh-syntax-highlighting ]]; then
-    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM_PLUGINS_DIR/zsh-syntax-highlighting
-fi
-if [[ ! -d $ZSH_CUSTOM_PLUGINS_DIR/zsh-autocomplete ]]; then
-    git clone --depth 1 -- https://github.com/marlonrichert/zsh-autocomplete.git $ZSH_CUSTOM_PLUGINS_DIR/zsh-autocomplete
-fi
-
-echo "=== Copying zsh config ==="
-if [[ -f ~/.zshrc ]]; then
-    mv ~/.zshrc ~/.zshrc.ori
-fi
-ln -sf $STARTER_DIR/config/.zshrc ~/ &>/dev/null
+# if [[ ! -d "${ZSH:-$HOME/.oh-my-zsh}" ]]; then
+#     echo "=== Installing oh-my-zsh ==="
+#     RUNZSH=no CHSH=no KEEP_ZSHRC=yes sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+# fi
+#
+# echo "=== Installing ohmyzsh plugins ==="
+# ZSH_CUSTOM_PLUGINS_DIR="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins"
+# mkdir -p $ZSH_CUSTOM_PLUGINS_DIR 2>/dev/null
+# if [[ ! -d $ZSH_CUSTOM_PLUGINS_DIR/zsh-syntax-highlighting ]]; then
+#     git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM_PLUGINS_DIR/zsh-syntax-highlighting
+# fi
+# if [[ ! -d $ZSH_CUSTOM_PLUGINS_DIR/zsh-autocomplete ]]; then
+#     git clone --depth 1 -- https://github.com/marlonrichert/zsh-autocomplete.git $ZSH_CUSTOM_PLUGINS_DIR/zsh-autocomplete
+# fi
+#
+# echo "=== Copying zsh config ==="
+# if [[ -f ~/.zshrc ]]; then
+#     mv ~/.zshrc ~/.zshrc.ori
+# fi
+# ln -sf $STARTER_DIR/config/.zshrc ~/ &>/dev/null
 
 if ! command -v rustup &>/dev/null; then
     echo "==- Installing rustup.rs ==="
@@ -125,3 +133,4 @@ echo "=== Copying config ==="
 ln -sf $STARTER_DIR/config/nvim/ ~/.config/ &>/dev/null
 ln -sf $STARTER_DIR/config/.alacritty.toml ~/ &>/dev/null
 ln -sf $STARTER_DIR/config/.tmux.conf ~/ &>/dev/null
+ln -sf $STARTER_DIR/config/personal.fish ~/.config/fish/conf.d/ &>/dev/null
