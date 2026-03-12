@@ -8,7 +8,7 @@ GIT_NAME="$2"
 mkdir -p $AUR_DIR
 
 echo "=== Installing apps through pacman ==="
-sudo pacman -S --needed --noconfirm pacman-contrib base-devel git curl unzip bat vlc{,-plugins-all} tree tmux alacritty btop rsync neovim tree-sitter lua-rocks fzf go lazygit fish zoxide pnpm php inter-font ttf-jetbrains-mono{,-nerd} lua-language-server docker{,-compose,-buildx} podman{,-compose} okular gwenview ast-grep
+sudo pacman -S --needed --noconfirm pacman-contrib base-devel git curl unzip bat vlc{,-plugins-all} tree tmux alacritty btop rsync neovim tree-sitter luarocks fzf go lazygit fish zoxide pnpm php inter-font ttf-jetbrains-mono{,-nerd} lua-language-server docker{,-compose,-buildx} podman{,-compose} okular gwenview ast-grep
 
 sudo usermod -aG docker $USER || true
 sudo usermod --add-subuids 100000-165535 --add-subgids 100000-165535 $USER
@@ -23,7 +23,7 @@ chsh -s "$(command -v fish)"
 if [ ! -d ~/.local/share/omf ]; then
     curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
 fi
-fish -c "omf update && omf install {sushi,nvm}"
+fish -c "omf update && omf install {nvm}"
 
 # if [[ ! -d "${ZSH:-$HOME/.oh-my-zsh}" ]]; then
 #     echo "=== Installing oh-my-zsh ==="
