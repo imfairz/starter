@@ -119,6 +119,10 @@ return {
 			sources = {
 				default = { "lsp", "path", "snippets", "buffer" },
 			},
+			cmdline = {
+				keymap = { preset = "inherit" },
+				completion = { menu = { auto_show = true } },
+			},
 		},
 	},
 	{
@@ -184,5 +188,14 @@ return {
 	{
 		"folke/trouble.nvim",
 		lazy = false,
+	},
+	{
+		"hat0uma/csvview.nvim",
+		---@module "csvview"
+		---@type CsvView.Options
+		opts = {
+			parser = { comments = { "#", "//" } },
+		},
+		cmd = { "CsvViewEnable", "CsvViewDisable", "CsvViewToggle" },
 	},
 }
