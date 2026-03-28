@@ -2,14 +2,15 @@
 import = [
     "~/.config/alacritty/themes/themes/aura.toml"
 ]
+live_config_reload = true
 
 [window]
 dimensions = { columns = 104, lines = 28 }
-opacity = 0.80
-decorations = "None"
+opacity = 0.60
 dynamic_padding = true
 # blur = true 
 startup_mode = "Maximized"
+dynamic_title = false
 
 [font]
 normal = { family = "JetBrainsMono Nerd Font" }
@@ -20,4 +21,4 @@ style = { blinking = "Always" }
 blink_interval = 350
 
 [env]
-term = "xterm-256color:RGB"
+TERM = "xterm"

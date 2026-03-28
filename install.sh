@@ -1,19 +1,21 @@
 #/bin/bash
 
 STARTER_DIR="$(pwd)"
-AUR_DIR="$HOME/applications/aurs"
+AUR_DIR="$HOME/aurs"
 GIT_EMAIL="$1"
 GIT_NAME="$2"
 
 mkdir -p $AUR_DIR
 
 echo "=== Installing apps through pacman ==="
-sudo pacman -S --needed --noconfirm pacman-contrib base-devel git curl unzip bat vlc{,-plugins-all} tree tmux ghostty alacritty btop rsync neovim tree-sitter luarocks fzf go lazygit fish zoxide pnpm php inter-font ttf-jetbrains-mono{,-nerd} lua-language-server docker{,-compose,-buildx} podman{,-compose} okular gwenview ast-grep
+sudo pacman -S --needed --noconfirm pacman-contrib base-devel git curl unzip bat vlc{,-plugins-all} tree tmux foot alacritty btop rsync neovim tree-sitter luarocks fzf go lazygit fish zoxide php inter-font ttf-jetbrains-mono{,-nerd} lua-language-server docker{,-compose,-buildx} podman{,-compose} okular gwenview ast-grep
 
-sudo usermod -aG docker $USER || true
-sudo usermod --add-subuids 100000-165535 --add-subgids 100000-165535 $USER
-systemctl --user enable --now podman{.socket,-restart}
-ln -sf $STARTER_DIR/config/containers ~/.config/
+sudo usermod -aG docker $USER || true &&
+    sudo systemctl disable docker.{service,socket} &&
+    sudo systemctl stop docker.{service,socket}
+sudo usermod --add-subuids 100000-165535 --add-subgids 100000-165535 $USER &&
+    systemctl --user enable --now podman{.socket,-restart} &&
+    ln -sf $STARTER_DIR/config/containers ~/.config/
 
 git config --global user.email "$GIT_EMAIL"
 git config --global user.name "$GIT_NAME"
@@ -117,8 +119,6 @@ if ! podman ps --format '{{.Names}}' | grep -q "mariadb" && ! podman ps --format
     podman-compose up -d
 fi
 
-chmod +x $STARTER_DIR/{starter,commit}.sh
-
 if [[ ! -d ~/.config/alacritty/themes || ! -d ~/.tmux/plugins/tpm ]]; then
     echo "=== Clone alacritty-themes ==="
     mkdir -p ~/.config/alacritty/themes
@@ -129,8 +129,8 @@ if [[ ! -d ~/.config/alacritty/themes || ! -d ~/.tmux/plugins/tpm ]]; then
 fi
 
 echo "=== Copying config ==="
-ln -sf $STARTER_DIR/config/nvim ~/.config/ &>/dev/null
-# ln -sf $STARTER_DIR/config/.alacritty.toml ~/ &>/dev/null
-ln -sf $STARTER_DIR/config/config.ghostty ~/.config/ghostty/ &>/dev/null
+ln -sf $STARTER_DIR/config/.alacritty.toml ~/ &>/dev/null
 ln -sf $STARTER_DIR/config/.tmux.conf ~/ &>/dev/null
 ln -sf $STARTER_DIR/config/personal.fish ~/.config/fish/conf.d/ &>/dev/null
+ln -sf $STARTER_DIR/config/nvim ~/.config/ &>/dev/null
+# ln -sf $STARTER_DIR/config/config.ghostty ~/.config/ghostty/ &>/dev/null

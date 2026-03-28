@@ -1,7 +1,9 @@
-background-opacity=0.5
+background-opacity=0.7
 fullscreen=true
 title=Gusti
 shell-integration=detect
 shell-integration-features=ssh-env
 font-size=10
 cursor-style=bar
+clipboard-paste-protection=false
+gtk-titlebar=false
