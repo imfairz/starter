@@ -92,7 +92,7 @@ return {
 	},
 	{
 		"saghen/blink.cmp",
-		build = "cargo +nightly build --release",
+		build = "cargo build --release",
 		version = "1.*",
 		dependencies = {
 			{ "rafamadriz/friendly-snippets" },
@@ -123,6 +123,7 @@ return {
 				keymap = { preset = "inherit" },
 				completion = { menu = { auto_show = true } },
 			},
+			fuzzy = { implementation = "lua" },
 		},
 	},
 	{

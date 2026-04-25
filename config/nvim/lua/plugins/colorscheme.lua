@@ -20,9 +20,14 @@ return {
 				colored_cursor = false,
 			},
 		},
-		config = function()
-			vim.cmd("colorscheme material-darker")
-		end,
 		priority = 100,
+	},
+	{
+		"catppuccin/nvim",
+		name = "catppuccin",
+		priority = 1000,
+		config = function()
+			vim.cmd("colorscheme catppuccin-macchiato")
+		end,
 	},
 }

@@ -1,12 +1,12 @@
 [general]
 import = [
-    "~/.config/alacritty/themes/themes/aura.toml"
+   "~/.config/alacritty/themes/themes/midnight_haze.toml"
 ]
 live_config_reload = true
 
 [window]
 dimensions = { columns = 104, lines = 28 }
-opacity = 0.60
+opacity = 0.80
 dynamic_padding = true
 # blur = true 
 startup_mode = "Maximized"
@@ -20,5 +20,5 @@ size = 10
 style = { blinking = "Always" }
 blink_interval = 350
 
-[env]
-TERM = "xterm"
+# [env]
+# TERM = "xterm" # This does not support 'truecolor' in within tmux session
