@@ -1,59 +1,59 @@
 services:
-    psql:
-        image: docker.io/library/postgres:18
-        container_name: postgres
-        restart: always
-        environment:
-            POSTGRES_PASSWORD: postgres
-        ports:
-            - 5432:5432
-        volumes:
-            - postgres:/var/lib/postgresql
-            - /etc/localtime:/etc/localtime:ro
-        networks:
-            - default
-        healthcheck:
-            test: ["CMD-SHELL", "pg_isready -U postgres -d postgres"]
-            interval: 10s
-            timeout: 5s
-            retries: 5
-            start_period: 10s
+  psql:
+    image: docker.io/library/postgres:18
+    container_name: postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres:/var/lib/postgresql
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      - default
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
 
-    mysql:
-        image: docker.io/library/mysql:lts
-        container_name: mysql
-        restart: always
-        environment:
-            MYSQL_ROOT_PASSWORD: root
-            MYSQL_USER: mysql
-            MYSQL_PASSWORD: mysql
-        ports:
-            - 3306:3306
-        volumes:
-            - mysql:/var/lib/mysql
-            - /etc/localtime:/etc/localtime:ro
-        networks:
-            - default
-        healthcheck:
-            test:
-                [
-                    "CMD",
-                    "mysqladmin",
-                    "ping",
-                    "-h",
-                    "localhost",
-                    "-uroot",
-                    "-p$MYSQL_ROOT_PASSWORD",
-                ]
-            interval: 20s
-            timeout: 5s
-            retries: 3
-            start_period: 30s
+  mysql:
+    image: docker.io/library/mysql:lts
+    container_name: mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: mysql
+      MYSQL_PASSWORD: mysql
+    ports:
+      - 3306:3306
+    volumes:
+      - mysql:/var/lib/mysql
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      - default
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "mysqladmin",
+          "ping",
+          "-h",
+          "localhost",
+          "-uroot",
+          "-p$MYSQL_ROOT_PASSWORD",
+        ]
+      interval: 20s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
 
 volumes:
-    postgres:
-    mysql:
+  postgres:
+  mysql:
 
 networks:
-    default:
-        name: databases
+  default:
+    name: databases

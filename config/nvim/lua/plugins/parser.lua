@@ -1,11 +1,18 @@
 return {
 	{
 		"nvim-treesitter/nvim-treesitter",
-		branch = "master",
+		branch = "main",
 		lazy = false,
 		build = ":TSUpdate",
-		opts = {
-			ensure_installed = {
+		init = function()
+			vim.api.nvim_create_autocmd("FileType", {
+				callback = function()
+					pcall(vim.treesitter.start)
+					vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+				end,
+			})
+
+			local ensureInstalled = {
 				"bash",
 				"rust",
 				"go",
@@ -25,12 +32,14 @@ return {
 				"arduino",
 				"prisma",
 				"fish",
-			},
-			highlight = { enable = true },
-			indent = { enable = true },
-		},
-		config = function(_, opts)
-			require("nvim-treesitter.configs").setup(opts)
+			}
+			local alreadyInstalled = require("nvim-treesitter.config").get_installed()
+			local parsersToInstall = vim.iter(ensureInstalled)
+				:filter(function(parser)
+					return not vim.tbl_contains(alreadyInstalled, parser)
+				end)
+				:totable()
+			require("nvim-treesitter").install(parsersToInstall)
 		end,
 	},
 	{
@@ -51,11 +60,11 @@ return {
 			},
 			formatters = {
 				prettier = {
-					append_args = { "--tab-width", "4" },
+					append_args = { "--tab-width", "2" },
 				},
 				biome = {
-					indent_style = "tab",
-					indent_width = 4,
+					indent_style = "space",
+					indent_width = 2,
 				},
 			},
 			notify_on_error = true,
@@ -82,7 +91,6 @@ return {
 				"goimports",
 				"golines",
 				"gotests",
-				"arduino-language-server",
 				"clang-format",
 			},
 		},

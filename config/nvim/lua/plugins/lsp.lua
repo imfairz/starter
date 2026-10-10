@@ -42,6 +42,14 @@ return {
 					},
 					filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
 				},
+				clangd = {
+					settings = {
+						cmd = { "clangd", "--background-index" },
+					},
+				},
+				kotlin_lsp = {
+					settings = {},
+				},
 			},
 		},
 		config = function(_, opts)
@@ -81,16 +89,12 @@ return {
 				"biome",
 				"dockerls",
 				"docker_compose_language_service",
-				"lemminx",
 				"astro",
-				"svelte",
 				-- "tsgo",
 				"vacuum",
 				"vue_ls",
 				"vtsls",
 				"eslint",
-				"angularls",
-				"prismals",
 				"gh_actions_ls",
 				"fish_lsp",
 			},
