@@ -1,136 +1,158 @@
 #/bin/bash
 
 STARTER_DIR="$(pwd)"
-AUR_DIR="$HOME/aurs"
 GIT_EMAIL="$1"
 GIT_NAME="$2"
 
-mkdir -p $AUR_DIR
+echo "=== Installing Packages ==="
+sudo dnf install \
+  git \
+  curl \
+  foot \
+  fish \
+  zoxide \
+  unzip \
+  tmux \
+  alacritty \
+  btop \
+  rsync \
+  tree-sitter-cli \
+  luarocks \
+  golang \
+  rsms-inter-fonts \
+  podman{,-compose} \
+  okular \
+  gwenview # lua-language-server \
 
-echo "=== Installing apps through pacman ==="
-sudo pacman -S --needed --noconfirm pacman-contrib base-devel git curl unzip bat vlc{,-plugins-all} tree tmux foot alacritty btop rsync neovim tree-sitter luarocks fzf go lazygit fish zoxide php inter-font ttf-jetbrains-mono{,-nerd} lua-language-server docker{,-compose,-buildx} podman{,-compose} okular gwenview ast-grep
+### Development Tools ###
+sudo dnf group install development-tools
 
-sudo usermod -aG docker $USER || true &&
-    sudo systemctl disable docker.{service,socket} &&
-    sudo systemctl stop docker.{service,socket}
-sudo usermod --add-subuids 100000-165535 --add-subgids 100000-165535 $USER &&
-    systemctl --user enable --now podman{.socket,-restart} &&
-    ln -sf $STARTER_DIR/config/containers ~/.config/
+### Rustup ###
+if ! command -v rustup &>/dev/null; then
+  echo "=== Installing Rust ==="
+  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+fi
+
+### Bun ###
+if ! command -v bun &>/dev/null; then
+  echo "=== Installing bun.com ==="
+  curl -fsSL https://bun.sh/install | bash &>/dev/null
+fi
+
+### NVM & Node ###
+# if ! -d ~/.nvm; then
+#   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.8/install.sh | bash
+# fi
+# if ! command -v node &>/dev/null; then
+#   echo "=== Installing nodejs ==="
+#   nvm install --lts | bash &>/dev/null
+# fi
+
+### Brave ###
+if ! command -v brave-browser &>/dev/null; then
+  echo "=== Installing Brave ==="
+  curl -fsS https://dl.brave.com/install.sh | sh
+  mkdir -p ~/.config/BraveSoftware/Brave-Browser/Default
+  cp $STARTER_DIR/config/brave-preferences ~/.config/BraveSoftware/Brave-Browser/Default/Preferences
+fi
+
+### Alacritty Themes ###
+if [[ ! -d ~/.config/alacritty/themes ]]; then
+  echo "=== Clone alacritty-themes ==="
+  mkdir -p ~/.config/alacritty/themes
+  git clone https://github.com/alacritty/alacritty-theme ~/.config/alacritty/themes
+fi
+
+### Tmux Plugin Manager ###
+if [[ ! -d ~/.tmux/plugins/tpm ]]; then
+  echo "=== Clone tpm ==="
+  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+fi
+
+### START Post Depedencies-Install ###
+sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
+sudo dnf install https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+
+# ISSUES
+# sudo dnf swap kmime kf6-kmime --allowerasing
+
+sudo dnf install \
+  neovim \
+  fzf \
+  vlc{,-plugins-all}
+
+### Oh My Fish ###
+command -v fish | sudo tee -a /etc/shells
+
+current_shell="$(getent passwd "$USER" | cut -d: -f7)"
+fish_path="$(command -v fish)"
+if [[ "$current_shell" != "$fish_path" ]]; then
+  chsh -s "$fish_path"
+fi
+
+if [ ! -d ~/.local/share/omf ]; then
+  curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
+fi
+fish -c "omf update && omf install nvm && nvm install --lts"
+
+# Flatpak
+if ! command -v flatpak &>/dev/null; then
+  flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+fi
+
+# Jetbrains Fonts (Mono & Nerd)
+if [[ ! -d ~/.local/share/fonts/JetBrainsMonoNerd ]]; then
+  mkdir -p ~/.local/share/fonts/JetBrainsMonoNerd
+  cd ~/.local/share/fonts/JetBrainsMonoNerd
+  wget https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip
+  unzip JetBrainsMono.zip
+  fc-cache -f
+fi
 
 git config --global user.email "$GIT_EMAIL"
 git config --global user.name "$GIT_NAME"
 
-command -v fish | sudo tee -a /etc/shells
-chsh -s "$(command -v fish)"
-if [ ! -d ~/.local/share/omf ]; then
-    curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
-fi
-fish -c "omf update && omf install nvm"
-
-# if [[ ! -d "${ZSH:-$HOME/.oh-my-zsh}" ]]; then
-#     echo "=== Installing oh-my-zsh ==="
-#     RUNZSH=no CHSH=no KEEP_ZSHRC=yes sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-# fi
-#
-# echo "=== Installing ohmyzsh plugins ==="
-# ZSH_CUSTOM_PLUGINS_DIR="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins"
-# mkdir -p $ZSH_CUSTOM_PLUGINS_DIR 2>/dev/null
-# if [[ ! -d $ZSH_CUSTOM_PLUGINS_DIR/zsh-syntax-highlighting ]]; then
-#     git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM_PLUGINS_DIR/zsh-syntax-highlighting
-# fi
-# if [[ ! -d $ZSH_CUSTOM_PLUGINS_DIR/zsh-autocomplete ]]; then
-#     git clone --depth 1 -- https://github.com/marlonrichert/zsh-autocomplete.git $ZSH_CUSTOM_PLUGINS_DIR/zsh-autocomplete
-# fi
-#
-# echo "=== Copying zsh config ==="
-# if [[ -f ~/.zshrc ]]; then
-#     mv ~/.zshrc ~/.zshrc.ori
-# fi
-# ln -sf $STARTER_DIR/config/.zshrc ~/ &>/dev/null
-
-if ! command -v rustup &>/dev/null; then
-    echo "==- Installing rustup.rs ==="
-    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh &>/dev/null
-    rustup toolchain install nightly
-fi
-
-if ! command -v bun &>/dev/null; then
-    echo "=== Installing bun.com ==="
-    curl -fsSL https://bun.sh/install | bash &>/dev/null
-fi
-
-if ! command -v node &>/dev/null; then
-    echo "=== Installing nodejs ==="
-    nvm install --lts | bash &>/dev/null
-fi
-
-# aur-ish
-echo "=== Installing aur packages ==="
-
-if ! command -v paru &>/dev/null; then
-    git clone https://aur.archlinux.org/paru.git $AUR_DIR/paru
-    cd $AUR_DIR/paru
-    makepkg -si --noconfirm
-    cd $STARTER_DIR
-fi
-
-# if ! command -v zen-browser &>/dev/null; then
-#     echo "=== Installing Zen-Browser ==="
-#     paru -S --noconfirm zen-browser-bin
+### Handled by omf
+# if [ "$SHELL" == "/usr/bin/fish" ]; then
+#   chsh -s /usr/bin/fish
 # fi
 
-if ! command -v tableplus &>/dev/null; then
-    echo "=== Installing TablePlus ==="
-    paru -S --noconfirm tableplus
+# Ast-grep
+if ! command -v ast-grep &>/dev/null; then
+  cargo install ast-grep --locked
 fi
 
-if ! command -v yaak-app &>/dev/null; then
-    echo "=== Installing Yaak ==="
-    paru -S --noconfirm yaak-bin
+# Lazygit
+if ! command -v lazygit &>/dev/null; then
+  sudo dnf copr enable dejan/lazygit
+  sudo dnf install lazygit
 fi
+### END Post Depedencies-Install ###
 
-# if ! command -v vncviewer &>/dev/null; then
-#     echo "=== Installing VNCviewer ==="
-#     paru -S --noconfirm realvnc-vnc-viewer
-# fi
-
-if ! command -v brave &>/dev/null; then
-    echo "=== Installing Brave ==="
-    curl -fsS https://dl.brave.com/install.sh | sh
-    mkdir -p ~/.config/BraveSoftware/Brave-Browser/Default
-    cp $STARTER_DIR/config/brave-preferences ~/.config/BraveSoftware/Brave-Browser/Default/Preferences
-fi
-
-# if ! command -v dbpro &>/dev/null; then
-#     echo "=== Installing DBPro ==="
-#     git clone https://github.com/imfairz/dbpro $AUR_DIR/dbpro
-#     cd $AUR_DIR/dbpro
-#     chmod +x install.sh
-#     ./install.sh
-#     cd $STARTER_DIR
-# fi
-
-echo "=== Done with aurs. ==="
-# end aur-ish
-
-if ! podman ps --format '{{.Names}}' | grep -q "mariadb" && ! podman ps --format '{{.Names}}' | grep -q "postgres"; then
-    echo "=== Setup podman containers ==="
-    cd $STARTER_DIR/config
-    podman-compose up -d
-fi
-
-if [[ ! -d ~/.config/alacritty/themes || ! -d ~/.tmux/plugins/tpm ]]; then
-    echo "=== Clone alacritty-themes ==="
-    mkdir -p ~/.config/alacritty/themes
-    git clone https://github.com/alacritty/alacritty-theme ~/.config/alacritty/themes
-
-    echo "=== Clone tpm ==="
-    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-fi
-
+### Linking Config Files ###
+declare -A config_files=(
+  [".alacritty.toml"]="$HOME/"
+  [".tmux.conf"]="$HOME/"
+  ["personal.fish"]="$HOME/.config/fish/conf.d/"
+  ["nvim"]="$HOME/.config/"
+)
 echo "=== Copying config ==="
-ln -sf $STARTER_DIR/config/.alacritty.toml ~/ &>/dev/null
-ln -sf $STARTER_DIR/config/.tmux.conf ~/ &>/dev/null
-ln -sf $STARTER_DIR/config/personal.fish ~/.config/fish/conf.d/ &>/dev/null
-ln -sf $STARTER_DIR/config/nvim ~/.config/ &>/dev/null
-# ln -sf $STARTER_DIR/config/config.ghostty ~/.config/ghostty/ &>/dev/null
+for file in "${!config_targets[@]}"; do
+  source="$STARTER_DIR/config/$file"
+  target="${config_targets[$file]}$file"
+
+  if [[ -e "$target" || -L "$target" ]]; then
+    echo "[SKIP] $target already exists"
+    continue
+  fi
+
+  ln -s "$source" "$target" &&
+    echo "[OK] $target linked" ||
+    echo "[ERROR] Failed to link $target"
+done
+
+# if ! podman ps --format '{{.Names}}' | grep -q "mariadb" && ! podman ps --format '{{.Names}}' | grep -q "postgres"; then
+#     echo "=== Setup podman containers ==="
+#     cd $STARTER_DIR/config
+#     podman-compose up -d
+# fi
